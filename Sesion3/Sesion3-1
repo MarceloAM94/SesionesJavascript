@@ -1,0 +1,16 @@
+// Funcion tradicional 
+function multiplicar(a, b){
+    return a * b;
+}
+
+// Funcion fleca equivalente
+const dividir = (a, b) => {
+    return a / b;
+};
+
+// Funcion flecha de una sola linea, sin llaves ni return
+const restar = (a,b) => a - b;
+
+console.log(multiplicar(4, 3)); // 12
+console.log(dividir(10, 2)); // 5
+console.log(restar(8, 5)); // 3
