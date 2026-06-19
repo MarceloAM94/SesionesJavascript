@@ -22,8 +22,6 @@ node Sesion1/01-variables.js
 
 Siguientes pasos sugeridos
 
-- Añadir `package.json` con scripts para ejecutar ejemplos fácilmente.
-- Añadir tests básicos para validar ejercicios.
 - Publicar en GitHub Pages o crear documentación estática.
 
 Repositorio remoto: https://github.com/MarceloAM94/SesionesJavascript.git
