@@ -3,9 +3,10 @@
 ## Objetivos
 - Declarar y usar funciones tradicionales
 - Escribir arrow functions y entender sus diferencias
-- Usar parámetros por defecto
+- Usar parámetros por defecto y rest parameters
 - Comprender el hoisting en funciones
 - Pasar funciones como argumentos (callbacks)
+- Conocer IIFE y el objeto `arguments`
 
 ## Teoría
 
@@ -56,6 +57,45 @@ presentar("Marcelo");      // "Marcelo tiene 18 años"
 presentar("Marcelo", 22);  // "Marcelo tiene 22 años"
 ```
 
+### Rest parameters (`...`)
+
+Agrupa los argumentos "extra" en un array:
+
+```js
+function sumarTodos(...numeros) {
+    // numeros = [1, 2, 3, 4]
+    let total = 0;
+    numeros.forEach((n) => total += n);
+    return total;
+}
+
+sumarTodos(1, 2, 3, 4);  // 10
+```
+
+También podés combinarlo con parámetros normales:
+```js
+function mostrar(nombre, ...hobbies) {
+    console.log(`${nombre} tiene estos hobbies:`, hobbies);
+}
+
+mostrar("Ana", "leer", "correr", "cocinar");
+// "Ana tiene estos hobbies: [ 'leer', 'correr', 'cocinar' ]"
+```
+
+### El objeto `arguments`
+
+Solo en funciones tradicionales (no arrow), `arguments` contiene todos los argumentos pasados:
+
+```js
+function listar() {
+    console.log(arguments);  // [Arguments] { '0': 'a', '1': 'b', '2': 'c' }
+}
+
+listar("a", "b", "c");
+```
+
+Hoy en día se prefiere usar rest parameters (`...`) porque `arguments` no es un array real.
+
 ### Hoisting
 
 Las funciones declaradas con `function` se "elevan" al inicio del ámbito:
@@ -78,15 +118,49 @@ const saludar = () => "Hola";
 
 ### Callbacks
 
-Una función puede recibir otra función como argumento:
+Una función puede recibir otra función como argumento y ejecutarla:
 
 ```js
-function ejecutar(fn) {
-    fn();
+function procesarUsuario(nombre, callback) {
+    const mensaje = `Hola, ${nombre}`;
+    callback(mensaje);
 }
 
-ejecutar(() => console.log("Me ejecutaron como argumento"));
+procesarUsuario("Marcelo", (msg) => console.log(msg));
+// "Hola, Marcelo"
 ```
+
+Los callbacks se usan mucho en eventos y operaciones asíncronas:
+
+```js
+function cocinar(comida, alTerminar) {
+    console.log(`Cocinando ${comida}...`);
+    setTimeout(() => {            // Simula que tarda 2 segundos
+        alTerminar(comida);
+    }, 2000);
+}
+
+cocinar("pizza", (plato) => console.log(`${plato} listo!`));
+// "Cocinando pizza..."
+// (2 segundos después) "pizza listo!"
+```
+
+### IIFE (Immediately Invoked Function Expression)
+
+Una función que se ejecuta en el momento en que se define:
+
+```js
+(function() {
+    console.log("Me ejecuto al instante");
+})();
+
+// También con arrow:
+(() => {
+    console.log("IIFE con arrow function");
+})();
+```
+
+Se usa para crear un ámbito privado y no contaminar variables globales.
 
 ## Ejercicios
 
@@ -101,3 +175,5 @@ ejecutar(() => console.log("Me ejecutaron como argumento"));
 - Usar funciones tradicionales cuando se necesite hoisting o su propio `this`.
 - Siempre nombrar las funciones de forma descriptiva (verbo + sustantivo).
 - Preferir arrow functions en métodos de arrays (`map`, `filter`, etc.).
+- Preferir rest parameters (`...`) sobre el objeto `arguments`.
+- Las IIFE sirven para aislar código y evitar contaminar variables globales.

@@ -4,8 +4,10 @@
 - Iterar arrays con `forEach`
 - Transformar arrays con `map`
 - Filtrar elementos con `filter`
-- Buscar elementos con `find`
+- Buscar elementos con `find` y verificar con `some`/`every`
 - Acumular valores con `reduce`
+- Ordenar con `sort`, verificar existencia con `includes`
+- Extraer partes con `slice` y `splice`
 - Encadenar métodos (chaining)
 
 ## Teoría
@@ -54,6 +56,29 @@ const primerMayorA3 = numeros.find((n) => n > 3);
 console.log(primerMayorA3); // 4
 ```
 
+### some y every — Verificar condiciones
+
+- `some` → ¿**Algún** elemento cumple? Devuelve `true`/`false`.
+- `every` → ¿**Todos** los elementos cumplen? Devuelve `true`/`false`.
+
+```js
+const edades = [15, 22, 18, 30];
+
+const algunMayor = edades.some((e) => e >= 18);   // true (22, 18, 30)
+const todosMayores = edades.every((e) => e >= 18); // false (15 no cumple)
+```
+
+### includes — ¿Existe el elemento?
+
+`includes` verifica si un valor está en el array (funciona con valores simples, no objetos):
+
+```js
+const frutas = ["manzana", "pera", "banana"];
+
+frutas.includes("pera");    // true
+frutas.includes("uva");     // false
+```
+
 ### reduce — Acumular
 
 Reduce el array a un solo valor. Recibe un acumulador y el elemento actual.
@@ -66,6 +91,53 @@ console.log(suma); // 21
 ```
 
 El segundo argumento (`0`) es el valor inicial del acumulador.
+
+### sort — Ordenar
+
+Ordena el array **modificando el original**. Por defecto ordena como texto:
+
+```js
+const numeros = [3, 10, 1, 20];
+numeros.sort();
+console.log(numeros); // [1, 10, 20, 3] (orden alfabético, no numérico)
+```
+
+Para ordenar números correctamente hay que pasarle una función de comparación:
+
+```js
+numeros.sort((a, b) => a - b);  // Ascendente: [1, 3, 10, 20]
+numeros.sort((a, b) => b - a);  // Descendente: [20, 10, 3, 1]
+```
+
+Con strings también sirve:
+```js
+const nombres = ["Luis", "Ana", "Pedro"];
+nombres.sort(); // ["Ana", "Luis", "Pedro"]
+```
+
+### slice — Extraer parte del array (sin modificar)
+
+`slice(inicio, fin)` devuelve un nuevo array desde `inicio` hasta `fin` (sin incluir `fin`). El original no se modifica.
+
+```js
+const letras = ["a", "b", "c", "d", "e"];
+
+const primeras3 = letras.slice(0, 3);  // ["a", "b", "c"]
+const desdeC = letras.slice(2);        // ["c", "d", "e"]
+const ultimas2 = letras.slice(-2);     // ["d", "e"] (índices negativos)
+```
+
+### splice — Agregar/eliminar en el medio (modifica)
+
+`splice(inicio, cantidadAEliminar, ...itemsAAgregar)` modifica el array original.
+
+```js
+const colores = ["rojo", "verde", "azul"];
+
+colores.splice(1, 1);             // Elimina 1 desde índice 1 → ["rojo", "azul"]
+colores.splice(1, 0, "negro");    // Agrega "negro" en índice 1 → ["rojo", "negro", "azul"]
+colores.splice(1, 1, "blanco");   // Reemplaza 1 en índice 1 → ["rojo", "blanco", "azul"]
+```
 
 ### Chaining (encadenamiento)
 
@@ -90,6 +162,7 @@ console.log(resultado); // [20, 40, 60]
 ## Buenas prácticas / Notas
 
 - `map` y `filter` devuelven un nuevo array; no modifican el original (inmutabilidad).
+- `sort` y `splice` **sí modifican** el array original. Hacé una copia con `[...arr].sort()` si querés evitar mutarlo.
 - Para operaciones simples de una línea se puede omitir `return` y las llaves `{}`.
 - El chaining mejora la legibilidad; evitar cadenas muy largas (extraer a variables intermedias si es necesario).
 - Preferir estos métodos sobre bucles `for` tradicionales para código más declarativo y legible.
