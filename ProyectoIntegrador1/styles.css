@@ -1,0 +1,122 @@
+/* ── RESET Y BASE ─────────────────────────────────────────
+Eliminamos márgenes y padding por defecto del navegador
+y definimos la fuente base para toda la página */
+* {
+    box-sizing: border-box; /* El padding no agranda el elemento, se incluye dentro */
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5; /* Gris muy claro — más profesional que blanco puro */
+    color: #333;               /* Color de texto base — negro suavizado */
+    min-height: 100vh;         /* La página ocupa al menos toda la pantalla */
+}
+
+/* ── CONTENEDOR PRINCIPAL ─────────────────────────────────
+Centra el contenido y le pone un ancho máximo.
+margin: 0 auto → centra horizontalmente el bloque */
+.container {
+    max-width: 800px;          /* Nunca más ancho que 800px */
+    margin: 2rem auto;         /* 2rem arriba/abajo, auto izquierda/derecha = centrado */
+    background-color: #ffffff;
+    border-radius: 12px;       /* Esquinas redondeadas */
+    padding: 2rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); /* Sombra: x y blur color */
+}
+
+/* ── ENCABEZADO ───────────────────────────────────────────
+Estilos para el título y descripción */
+h1 {
+    font-size: 2rem;
+    color: #1a1a2e;            /* Azul muy oscuro — da personalidad sin ser negro puro */
+    margin-bottom: 0.25rem;
+}
+
+.subtitulo {
+    color: #666;               /* Gris medio para texto secundario */
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+}
+
+/* ── BUSCADOR ─────────────────────────────────────────────
+width: 100% hace que ocupe todo el ancho disponible.
+outline: none elimina el borde azul por defecto al hacer foco */
+#input {
+    width: 100%;
+    padding: 0.65rem 1rem;
+    border: 1.5px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    outline: none;
+    transition: border-color 0.2s; /* Animación suave al hacer foco */
+}
+
+#input:focus {
+    border-color: #4a90d9;     /* El borde se vuelve azul al escribir */
+}
+
+/* ── TARJETAS DE PAÍSES ───────────────────────────────────
+Cada div de país se estiliza con estas reglas.
+Para que funcione, agrega class="tarjeta-pais" a cada div
+que creas con createElement en app.js */
+.tarjeta-pais {
+    display: flex;             /* Los elementos internos en fila */
+    align-items: center;       /* Centrados verticalmente */
+    gap: 12px;                 /* Espacio entre bandera y texto */
+    padding: 0.75rem 0.5rem;
+    border-bottom: 1px solid #f0f0f0; /* Línea separadora suave */
+    transition: background-color 0.15s; /* Animación suave en hover */
+    border-radius: 6px;
+}
+
+.tarjeta-pais:hover {
+    background-color: #f7f9ff; /* Fondo azul muy tenue al pasar el mouse */
+    cursor: default;
+}
+
+.tarjeta-pais img {
+    border-radius: 2px;        /* Esquinas levemente redondeadas en la bandera */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.tarjeta-pais span {
+    font-size: 0.95rem;
+}
+
+.tarjeta-pais strong {
+    color: #1a1a2e;
+}
+
+/* ── PANEL DE ESTADÍSTICAS ────────────────────────────────
+Se diferencia visualmente del resto con fondo gris claro */
+#contenedor-stats {
+    margin-top: 2rem;
+    background-color: #f7f9ff; /* Azul muy tenue */
+    border: 1px solid #e0e8f5;
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+}
+
+#contenedor-stats p {
+    font-size: 0.95rem;
+    color: #444;
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+#contenedor-stats p:last-child {
+    margin-bottom: 0; /* El último párrafo no tiene margen inferior */
+}
+
+/* ── SEPARADOR ────────────────────────────────────────────
+Una línea divisoria entre la lista y las estadísticas */
+.separador {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 1.5rem 0;
+}
